@@ -2,7 +2,7 @@
   "goerli": {
     "InsureABag": {
       "address": "0x8632bD6BE0cA0a7D4A5707F8f1Ff32D099bEefd4",
-      "startBlock": 0
+      "startBlock": 8704653
     }
   }
 }

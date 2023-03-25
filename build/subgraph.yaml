@@ -1,0 +1,30 @@
+specVersion: 0.0.5
+schema:
+  file: schema.graphql
+dataSources:
+  - kind: ethereum
+    name: InsureABag
+    network: goerli
+    source:
+      address: "0x8632bD6BE0cA0a7D4A5707F8f1Ff32D099bEefd4"
+      abi: InsureABag
+      startBlock: 8704653
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - PolicyCanceled
+        - PolicyCreated
+        - PolicyRenewed
+      abis:
+        - name: InsureABag
+          file: InsureABag/abis/InsureABag.json
+      eventHandlers:
+        - event: PolicyCanceled(uint256,address,uint256)
+          handler: handlePolicyCanceled
+        - event: PolicyCreated(uint256,address,uint256,uint256)
+          handler: handlePolicyCreated
+        - event: PolicyRenewed(uint256,address,uint256,uint256)
+          handler: handlePolicyRenewed
+      file: InsureABag/InsureABag.wasm
