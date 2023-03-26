@@ -21,6 +21,7 @@ dataSources:
         - PolicyCanceled
         - PolicyCreated
         - PolicyRenewed
+        - Policy
         # - Transfer
         # - Unpaused
       abis:

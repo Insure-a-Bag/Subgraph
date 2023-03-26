@@ -17,6 +17,7 @@ dataSources:
         - PolicyCanceled
         - PolicyCreated
         - PolicyRenewed
+        - Policy
       abis:
         - name: InsureABag
           file: InsureABag/abis/InsureABag.json

@@ -17,6 +17,8 @@ import {
   PolicyCanceled,
   PolicyCreated,
   PolicyRenewed,
+  Policy,
+  User
   // Transfer,
   // Unpaused
 } from "../generated/schema"
@@ -96,19 +98,21 @@ export function handlePolicyCanceled(event: PolicyCanceledEvent): void {
 }
 
 export function handlePolicyCreated(event: PolicyCreatedEvent): void {
-  let entity = new PolicyCreated(
-    event.transaction.hash
+  let entity = new Policy(
+    event.transaction.hash.toHexString()
   )
   entity.policyId = event.params.policyId
-  entity.collectionAddress = event.params.collectionAddress
+  entity.address = event.params.collectionAddress
   entity.tokenId = event.params.tokenId
   entity.expiryTime = event.params.expiryTime
-
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
+  entity.owner = event.transaction.from.toHexString()
 
   entity.save()
+  let user = User.load(event.transaction.from.toHexString())
+  if (!user) {
+    user = new User(event.transaction.from.toHexString())
+    user.save()
+  }
 }
 
 export function handlePolicyRenewed(event: PolicyRenewedEvent): void {

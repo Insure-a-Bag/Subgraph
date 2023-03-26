@@ -67,6 +67,20 @@ type PolicyRenewed @entity(immutable: true) {
   transactionHash: Bytes!
 }
 
+type Policy @entity {
+  id: ID!
+  address: Bytes!
+  tokenId: BigInt!
+  policyId: BigInt!
+  owner: User!
+  expiryTime: BigInt!
+}
+
+type User @entity {
+  id: ID!
+  policies: [Policy!]! @derivedFrom(field: "owner")
+}
+
 #type Transfer @entity(immutable: true) {
 #  id: Bytes!
 #  from: Bytes! # address
